@@ -5,8 +5,13 @@ function add(vehicle: iVehicle){
     return model.create(vehicle);
 }
 
-// TODO: criar delete
-
+function removeVehicle(id: string){
+    return model.destroy({
+        where: {
+            id: id
+        }
+    });
+}
 // TODO: criar update
 
 // TODO: criar patch
@@ -14,5 +19,6 @@ function add(vehicle: iVehicle){
 // TODO: criar select by placa
 
 export default {
-    add
+    add,
+    removeVehicle
 }

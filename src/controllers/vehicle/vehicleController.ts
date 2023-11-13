@@ -14,6 +14,7 @@ function apiHealth(req: Request, res: Response, next: any){
 async function add(req: Request, res: Response, next: any){
     try {
         const vehicle = req.body as iVehicle;
+        
         vehicle.id = uuidv4();
 
         const success = await vehicleRepository.add(vehicle);
@@ -31,7 +32,24 @@ async function add(req: Request, res: Response, next: any){
     }
 }
 
+async function removeVehicle(req: Request, res: Response, next: any){
+    try {
+        const id = req.params['id'];
+        if(id === null) return res.status(StatusCodes.BAD_REQUEST).end();
+
+        const success = await vehicleRepository.removeVehicle(id);
+
+        if(!success) return res.status(StatusCodes.BAD_REQUEST).end();
+
+        res.status(StatusCodes.OK).end();
+    } catch (error) {
+        console.error(`Error Message: ${error}`);
+        res.status(StatusCodes.BAD_REQUEST).end();
+    }
+}
+
 export default {
     apiHealth,
-    add
+    add,
+    removeVehicle
 }
